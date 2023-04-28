@@ -8,7 +8,6 @@ datafile = 'recorder_output/records/audio.h5'
 
 mg = acoular.MicGeom( from_file=micgeofile )
 ts = acoular.TimeSamples( name=datafile )
-# ps = acoular.PowerSpectra( time_data=ts, block_size=128, window='Hanning' )
 ps = acoular.PowerSpectra( time_data=ts, block_size=128, window='Hanning' )
 rg = acoular.RectGrid( x_min=-0.2, x_max=0.2, y_min=-0.2, y_max=0.2, z=0.3, increment=0.01 )
 st = acoular.SteeringVector( grid = rg, mics=mg )
@@ -19,6 +18,7 @@ Lm = acoular.L_p( pm )
 figure(2, figsize=(5,5))
 plot(mg.mpos[0], mg.mpos[1],'o')
 axis('equal')
+# show()
 clf()
 imshow( Lm.T, origin='lower', vmin=Lm.max()-3, \
        extent=rg.extend(), interpolation='bicubic')

@@ -45,7 +45,7 @@ class MicArray:
                 # each frame will have 16 samples (channels=16)
                 # size of each sample is 2 bytes (= 16 bits) in this example
                 # size of each frame is 2 bytes * 16 = 32 bytes
-                self.chunk_size = 32
+                self.chunk_size = 1024
                 debug('Audio device', name=name, channels=input_channels)
                 return i
         if max_channels_device_index is None:
