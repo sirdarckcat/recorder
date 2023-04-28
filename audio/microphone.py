@@ -36,9 +36,18 @@ class MicArray:
                 name=name,
                 in_channels=input_channels
             )
-            if input_channels > max_channels:
-                max_channels = input_channels
-                max_channels_device_index = i
+            # if input_channels > max_channels:
+            if b'UMA16v2' in name:
+                # max_channels = input_channels
+                # max_channels_device_index = i
+                self.channels = input_channels
+                # "RATE" is the "sampling rate", i.e. the number of frames per second
+                # each frame will have 16 samples (channels=16)
+                # size of each sample is 2 bytes (= 16 bits) in this example
+                # size of each frame is 2 bytes * 16 = 32 bytes
+                self.chunk_size = 32
+                debug('Audio device', name=name, channels=input_channels)
+                return i
         if max_channels_device_index is None:
             raise Exception('can not find input device')
         self.channels = max_channels
@@ -50,6 +59,7 @@ class MicArray:
         self.frames = []
         self.pyaudio_instance = pyaudio.PyAudio()
         device_index = self._select_mic_device_index()
+        print("channels", self.channels)
         self.stream = self.pyaudio_instance.open(
             format=SAMPLE_FORMAT,
             channels=self.channels,

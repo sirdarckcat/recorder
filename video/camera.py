@@ -20,7 +20,7 @@ class StandardVideoRecorder:
         self._frames = []
         self._timestamps = []
         self._output_file_path = None
-        self.start()
+        print(RECORDS_PATH)
         os.makedirs(RECORDS_PATH, exist_ok=True)
         self._output_file_path = os.path.join(RECORDS_PATH, AVI_FILE_NAME)
 
@@ -41,16 +41,31 @@ class StandardVideoRecorder:
 
         self._frames = []
 
-        cap = cv2.VideoCapture(1)
+        # cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(0)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH , 320) # you should chose a value that the camera supports
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT , 240) # you should chose a value that the camera supports
+
+        if not cap.isOpened():
+            print("sad face")
+        else:
+            print("using 0")
+
         self._ret, self._frame = cap.read()
-        h, w = self._frame.shape[:2]
+        print(self._ret, self._frame)
+        # h, w = self._frame.shape[:2]
+        h, w = (240, 320)
 
         fps = cap.get(cv2.CAP_PROP_FPS) // 3
+        print(fps)
         self._cap = cap
 
         # Define the codec and create VideoWriter object
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         self._out = cv2.VideoWriter(self._output_file_path, fourcc, fps, (w, h))
+        print(self._output_file_path)
+        # self._out = cv2.VideoWriter(self._output_file_path, fourcc, 20.0, (int(cap.get(3)),int(cap.get(4))))
+
 
     def run(self):
         debug('Recording video')
