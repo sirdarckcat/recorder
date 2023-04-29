@@ -1,15 +1,6 @@
 # recorder
 
-Proof of concept for capturing video and audio.
-
-## Record video and audio
+## record and beamform
 ```
-./record.sh
-ctrl+c
-```
-
-## Merge video and audio
-```
-cd recorder_output/records/
-./merge.sh
+python3 main.py mic; python3 wav2h5.py recorder_output/records/audio.wav; python3 beamform.py; rm recorder_output/records/audio.*
 ```
