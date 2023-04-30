@@ -1,6 +1,8 @@
+import matplotlib
+matplotlib.use('TkAgg')
+from matplotlib.pyplot import figure, plot, axis, imshow, colorbar, show, clf
 from os import path
 import acoular
-from pylab import figure, plot, axis, imshow, colorbar, show, clf
 
 micgeofile = path.join(path.split(acoular.__file__)[0], 'xml', 'minidsp_uma16.xml')
 # datafile = 'audio.h5'

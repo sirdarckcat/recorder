@@ -37,7 +37,7 @@ class MicArray:
                 in_channels=input_channels
             )
             # if input_channels > max_channels:
-            if b'UMA16v2' in name:
+            if (b'MCHStreamer' in name or b'UMA16v2' in name) and input_channels > 0:
                 # max_channels = input_channels
                 # max_channels_device_index = i
                 self.channels = input_channels
